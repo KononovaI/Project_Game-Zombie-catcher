@@ -96,7 +96,7 @@
         <div class="item"></div>
     </div>
     <audio id="sound-bu" src="./sounds/bu.mp3" loop></audio>
-    
+    <audio id="sound-shot" src="./sounds/shot.mp3"></audio>
 
     <script>
         const items = document.querySelectorAll(".item");
@@ -105,6 +105,8 @@
             return Math.floor(Math.random() * array.length)
         }
         let randomIndex;
+				let hit = true;
+				const missCounter = document.getElementById("miss-counter");
 
         const zombieImg = document.createElement("img");
         zombieImg.src = "./images/zombie.png";
@@ -129,7 +131,23 @@
                 soundBtn.innerHTML = "SOUND OFF";
             }
 
+        const hitImg = document.createElement("img");
+        hitImg.src = "/images/blood.png";
         
+        const hitCounter = document.getElementById("hit-counter");
+        
+
+        const shot = document.getElementById("sound-shot");
+        zombieImg.onclick = function() {
+            shot.currentTime=0; //To avoid overlapping of the shot's sound
+            shot.play();
+
+            zombieImg.remove();
+            items[randomIndex].append(hitImg);//Change to blood image
+
+            hitCounter.innerText++
+
+        }
 
         }
 
