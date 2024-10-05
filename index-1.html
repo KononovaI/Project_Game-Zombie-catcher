@@ -105,8 +105,8 @@
             return Math.floor(Math.random() * array.length)
         }
         let randomIndex;
-				let hit = true;
-				const missCounter = document.getElementById("miss-counter");
+        let hit = true;
+        const missCounter = document.getElementById("miss-counter");
 
         const zombieImg = document.createElement("img");
         zombieImg.src = "./images/zombie.png";
@@ -115,9 +115,16 @@
         items[randomIndex].append(zombieImg);
 
         setInterval(function() {
+            if(hit === true) {
+                hit = false
+            } else {
+                missCounter.innerText++
+            }
+
             randomIndex = getRandomIndex(items);
             items[randomIndex].append(zombieImg); // Here will be replaced the zombie
-        },2000)
+            hitImg.remove()
+        }, 3000)
 
         const bu = document.getElementById("sound-bu");
         const soundBtn = document.getElementById("sound-btn");
@@ -126,32 +133,31 @@
                 bu.pause();
                 bu.currentTime = 0;
                 soundBtn.innerHTML = "SOUND ON";
-            }else{ //If sund is OFF
+            }else{ //If sound is OFF
                 bu.play();
                 soundBtn.innerHTML = "SOUND OFF";
             }
+        }
 
         const hitImg = document.createElement("img");
         hitImg.src = "/images/blood.png";
         
         const hitCounter = document.getElementById("hit-counter");
         
-
         const shot = document.getElementById("sound-shot");
+
         zombieImg.onclick = function() {
+			hit = true;
             shot.currentTime=0; //To avoid overlapping of the shot's sound
             shot.play();
 
             zombieImg.remove();
             items[randomIndex].append(hitImg);//Change to blood image
 
-            hitCounter.innerText++
+            hitCounter.innerText++;
 
         }
-
-        }
-
-
+        
     </script>
 </body>
 
