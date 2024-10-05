@@ -95,8 +95,44 @@
         <div class="item"></div>
         <div class="item"></div>
     </div>
+    <audio id="sound-bu" src="./sounds/bu.mp3" loop></audio>
+    
 
     <script>
+        const items = document.querySelectorAll(".item");
+
+        function getRandomIndex(array) {
+            return Math.floor(Math.random() * array.length)
+        }
+        let randomIndex;
+
+        const zombieImg = document.createElement("img");
+        zombieImg.src = "./images/zombie.png";
+
+        randomIndex = getRandomIndex(items);
+        items[randomIndex].append(zombieImg);
+
+        setInterval(function() {
+            randomIndex = getRandomIndex(items);
+            items[randomIndex].append(zombieImg); // Here will be replaced the zombie
+        },2000)
+
+        const bu = document.getElementById("sound-bu");
+        const soundBtn = document.getElementById("sound-btn");
+        soundBtn.onclick = function(){
+            if(bu.currentTime){ //Sound is ON
+                bu.pause();
+                bu.currentTime = 0;
+                soundBtn.innerHTML = "SOUND ON";
+            }else{ //If sund is OFF
+                bu.play();
+                soundBtn.innerHTML = "SOUND OFF";
+            }
+
+        
+
+        }
+
 
     </script>
 </body>
